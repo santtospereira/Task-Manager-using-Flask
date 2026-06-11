@@ -1,0 +1,29 @@
+name: Pipeline DevSecOps - Gestão de Tarefas
+
+on:
+  push:
+    branches: [ master, estagio, desenvolvimento ]
+  pull_request:
+    branches: [ master, estagio ]
+
+jobs:
+  build-and-validate:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout do codigo fonte
+      uses: actions/checkout@v3
+
+    - name: Inicializar ambiente Python 3.10
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Validar integridade e instalar dependencias
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Validar compilacao do ambiente em Container Docker
+      run: |
+        docker build -t task-manager-ci:${{ github.sha }} .
