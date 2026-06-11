@@ -107,3 +107,17 @@ jobs:
       with:
         name: relatorio-dast-estagio
         path: relatorio_stage_dast.html
+
+  post-deployment-monitoring:
+    runs-on: ubuntu-latest
+    needs: deploy-stage
+    if: github.ref == 'refs/heads/estagio' || github.base_ref == 'estagio'
+
+    steps:
+    - name: Simular Inicializacao de Agente de Monitoramento (ELK/Wazuh)
+      run: |
+        echo "Iniciando a instalacao das ferramentas de monitoramento pós-implantacao..."
+        echo "Instalando agente de analise de logs em producao/estagio..."
+        # Simula a verificacao e escuta ativa de anomalias (ex: tentativas de forca bruta)
+        echo "Agente configurado para inspecionar falhas de autenticacao de anomalias."
+        echo "Monitoramento ativo e integrado com sucesso."
