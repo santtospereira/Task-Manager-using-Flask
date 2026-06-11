@@ -87,4 +87,16 @@ jobs:
         target: 'http://localhost:5000'
         token: ${{ secrets.GITHUB_TOKEN }}
         fail_action: false
-        artifact_name: 'zap-scan-report'
+        allow_issue_writing: true
+        # Desabilitamos o upload automatico para fazer manualmente abaixo
+        artifact_name: ''
+
+    - name: Upload Relatorio do ZAP
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: zap-scan-report
+        path: |
+          zap_report.html
+          zap_report.json
+          zap_report.md
