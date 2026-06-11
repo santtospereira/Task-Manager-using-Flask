@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ master, estagio ]
 
+permissions:
+  contents: read
+  issues: write
+
 jobs:
   build-and-validate:
     runs-on: ubuntu-latest
